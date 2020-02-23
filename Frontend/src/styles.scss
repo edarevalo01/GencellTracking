@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+	margin: 0px !important;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+// Colors
+$white: #ffffff;
+$transparent: transparent;
+$background-grey: #f6f6f6;
+$hover-menu: #a51071;
+$border-color: #70707054;
+$text-color-grey: #5c5c5c;
+
+//Global variables
+$global-border-radius: 8px;

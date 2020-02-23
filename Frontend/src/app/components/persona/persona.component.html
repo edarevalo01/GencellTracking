@@ -1,1 +1,34 @@
-<p>persona works!</p>
+<div class="total-page">
+	<p-toolbar class="toolbar-style">
+		<div class="ui-toolbar-group-left">
+			<img src="assets/images/logo-horizontal-blanco.png" alt="logo-gencell" width="140px" class="img-logo" />
+		</div>
+
+		<div class="ui-toolbar-group-right">
+			<button pButton icon="pi pi-search" iconPos="left" class="button-toolbar" label="Informes"></button>
+			<button pButton icon="pi pi-calendar" iconPos="left" class="button-toolbar" label="Salir" (click)="salir()"></button>
+		</div>
+	</p-toolbar>
+
+	<div class="nombre-persona">
+		<p><b>Bienvenido: </b>{{ persona.nombreCompleto }}</p>
+	</div>
+
+	<div class="container-examenes">
+		<div class="cant-examenes">Resumen de estado de exámenes: {{ persona.examenes.length }} resúmenes disponibles</div>
+		<hr class="solid" />
+		<div class="examen" *ngFor="let examen of persona.examenes">
+			<span>{{ examen.nombre }} | {{ examen.fechaCreacion }} </span>
+			<br />
+			<div class="p-grid" style="margin-top: .5em">
+				<div class="p-col" *ngFor="let col of examen.estado; let i = index">
+					<div class="box">{{ i + 1 }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="footer-style">
+		<p>Copyright © 2020 Gencell Pharma.</p>
+	</footer>
+</div>

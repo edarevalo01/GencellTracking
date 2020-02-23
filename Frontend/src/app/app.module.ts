@@ -13,10 +13,22 @@ import { PersonaComponent } from "./components/persona/persona.component";
 import { EpsComponent } from "./components/eps/eps.component";
 
 // Primeng Components
+import { ButtonModule } from "primeng/button";
+import { ToolbarModule } from "primeng/toolbar";
+import { MenubarModule } from "primeng/menubar";
 
 @NgModule({
 	declarations: [AppComponent, LoginComponent, PersonaComponent, EpsComponent],
-	imports: [BrowserModule, BrowserAnimationsModule, FormsModule, HttpClientModule, AppRoutingModule],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		FormsModule,
+		HttpClientModule,
+		AppRoutingModule,
+		ButtonModule,
+		ToolbarModule,
+		MenubarModule
+	],
 	providers: [],
 	bootstrap: [AppComponent]
 })
