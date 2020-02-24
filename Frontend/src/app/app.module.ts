@@ -16,6 +16,11 @@ import { EpsComponent } from "./components/eps/eps.component";
 import { ButtonModule } from "primeng/button";
 import { ToolbarModule } from "primeng/toolbar";
 import { MenubarModule } from "primeng/menubar";
+import { TooltipModule } from "primeng/tooltip";
+import { TableModule } from "primeng/table";
+import { DropdownModule } from "primeng/dropdown";
+import { InputTextModule } from "primeng/inputtext";
+import { DialogModule } from "primeng/dialog";
 
 @NgModule({
 	declarations: [AppComponent, LoginComponent, PersonaComponent, EpsComponent],
@@ -27,7 +32,12 @@ import { MenubarModule } from "primeng/menubar";
 		AppRoutingModule,
 		ButtonModule,
 		ToolbarModule,
-		MenubarModule
+		MenubarModule,
+		TooltipModule,
+		TableModule,
+		DropdownModule,
+		InputTextModule,
+		DialogModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

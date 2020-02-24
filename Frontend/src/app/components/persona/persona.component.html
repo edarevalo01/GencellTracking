@@ -17,12 +17,17 @@
 	<div class="container-examenes">
 		<div class="cant-examenes">Resumen de estado de exámenes: {{ persona.examenes.length }} resúmenes disponibles</div>
 		<hr class="solid" />
+
 		<div class="examen" *ngFor="let examen of persona.examenes">
-			<span>{{ examen.nombre }} | {{ examen.fechaCreacion }} </span>
+			<span>{{ examen.nombre }} | Fecha creación: {{ examen.fechaCreacion }} |</span>
+			<span *ngFor="let estado of examen.estado">
+				<span *ngIf="estado.estado == 'S'"> Estado: {{ estado.nombre }} </span>
+			</span>
 			<br />
+
 			<div class="p-grid" style="margin-top: .5em">
-				<div class="p-col" *ngFor="let col of examen.estado; let i = index">
-					<div class="box">{{ i + 1 }}</div>
+				<div class="p-col" *ngFor="let col of examen.estado; let i = index" [pTooltip]="col.nombre" tooltipPosition="top">
+					<div class="box">{{ " . " }}</div>
 				</div>
 			</div>
 		</div>

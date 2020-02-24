@@ -1,1 +1,97 @@
-<p>eps works!</p>
+<div class="total-page">
+	<p-toolbar class="toolbar-style">
+		<div class="ui-toolbar-group-left">
+			<img src="assets/images/logo-horizontal-blanco.png" alt="logo-gencell" width="140px" class="img-logo" />
+		</div>
+
+		<div class="ui-toolbar-group-right">
+			<button pButton icon="pi pi-search" iconPos="left" class="button-toolbar" label="Informes"></button>
+			<button pButton icon="pi pi-calendar" iconPos="left" class="button-toolbar" label="Salir" (click)="salir()"></button>
+		</div>
+	</p-toolbar>
+
+	<div class="nombre-persona">
+		<p><b>Bienvenido: </b>EPS Colsanitas (?)</p>
+	</div>
+
+	<div class="container-personas">
+		<p-table #dt [value]="pacientes" [paginator]="true" [rows]="6">
+			<ng-template pTemplate="caption">
+				Lista de pacientes
+			</ng-template>
+
+			<ng-template pTemplate="header">
+				<tr>
+					<th class="ui-p-1">
+						Documento
+						<input pInputText type="text" (input)="dt.filter($event.target.value, 'documento', 'contains')" />
+					</th>
+					<th class="ui-p-2">
+						Nombre Completo
+						<input pInputText type="text" (input)="dt.filter($event.target.value, 'nombreCompleto', 'contains')" />
+					</th>
+					<th class="ui-p-3">
+						Correo electrónico
+						<input pInputText type="text" (input)="dt.filter($event.target.value, 'correo', 'contains')" />
+					</th>
+					<th class="ui-p-4">
+						Celular
+						<input pInputText type="text" (input)="dt.filter($event.target.value, 'celular', 'contains')" />
+					</th>
+					<th class="ui-p-5">
+						Ciudad
+						<input pInputText type="text" (input)="dt.filter($event.target.value, 'ciudad', 'contains')" />
+					</th>
+					<th class="ui-p-1">
+						Ver resumen
+					</th>
+				</tr>
+			</ng-template>
+
+			<ng-template pTemplate="body" let-paciente>
+				<tr>
+					<td class="ui-p-1">{{ paciente.documento }}</td>
+					<td class="ui-p-2">{{ paciente.nombreCompleto }}</td>
+					<td class="ui-p-3">{{ paciente.correo }}</td>
+					<td class="ui-p-4">{{ paciente.celular }}</td>
+					<td class="ui-p-5">{{ paciente.ciudad }}</td>
+					<td class="ui-p-1" (click)="openPersona(paciente.id)">{{ paciente.examenes }} - Ver</td>
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+
+	<footer class="footer-style">
+		<p>Copyright © 2020 Gencell Pharma.</p>
+	</footer>
+</div>
+
+<p-dialog
+	[header]="'Examenes: ' + pacienteSelected.nombreCompleto"
+	[(visible)]="displayPersona"
+	[modal]="true"
+	[style]="{ width: '70vw', minWidth: '70vw' }"
+	[maximizable]="true"
+	[baseZIndex]="10000"
+	[draggable]="false"
+	[resizable]="false"
+>
+	<div class="container-examenes">
+		<div class="cant-examenes">Resumen de estado de exámenes: {{ persona.examenes.length }} resúmenes disponibles</div>
+		<hr class="solid" />
+
+		<div class="examen" *ngFor="let examen of persona.examenes">
+			<span>{{ examen.nombre }} | Fecha creación: {{ examen.fechaCreacion }} |</span>
+			<span *ngFor="let estado of examen.estado">
+				<span *ngIf="estado.estado == 'S'"> Estado: {{ estado.nombre }} </span>
+			</span>
+			<br />
+
+			<div class="p-grid" style="margin-top: .5em">
+				<div class="p-col" *ngFor="let col of examen.estado; let i = index" [pTooltip]="col.nombre" tooltipPosition="top">
+					<div class="box">{{ " . " }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</p-dialog>

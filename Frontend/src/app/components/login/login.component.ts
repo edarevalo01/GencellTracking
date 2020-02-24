@@ -11,7 +11,11 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() {}
 
-	iniciarSesion() {
-		this.router.navigateByUrl("persona");
+	iniciarSesion(idUser: number) {
+		if (idUser == 1) {
+			this.router.navigateByUrl("persona");
+		} else if (idUser == 2) {
+			this.router.navigateByUrl("eps");
+		}
 	}
 }
