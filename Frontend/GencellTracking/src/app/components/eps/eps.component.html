@@ -1,4 +1,4 @@
-<div class="total-page">
+<div class="total-page" *ngIf="yahay">
 	<p-toolbar class="toolbar-style">
 		<div class="ui-toolbar-group-left">
 			<img src="assets/images/logo-horizontal-blanco.png" alt="logo-gencell" width="140px" class="img-logo" />
@@ -15,7 +15,7 @@
 	</div>
 
 	<div class="container-personas">
-		<p-table #dt [value]="pacientes" [paginator]="true" [rows]="6">
+		<p-table #dt [value]="pacientes" [paginator]="true" [rows]="10">
 			<ng-template pTemplate="caption">
 				Lista de pacientes
 			</ng-template>
@@ -51,7 +51,7 @@
 			<ng-template pTemplate="body" let-paciente>
 				<tr>
 					<td class="ui-p-1">{{ paciente.documento }}</td>
-					<td class="ui-p-2">{{ paciente.nombreCompleto }}</td>
+					<td class="ui-p-2">{{ paciente.nombreCompleto.split("null").join(" ") }}</td>
 					<td class="ui-p-3">{{ paciente.correo }}</td>
 					<td class="ui-p-4">{{ paciente.celular }}</td>
 					<td class="ui-p-5">{{ paciente.ciudad }}</td>
@@ -66,6 +66,7 @@
 	</footer>
 </div>
 
+<!--
 <p-dialog
 	[header]="'Examenes: ' + pacienteSelected.nombreCompleto"
 	[(visible)]="displayPersona"
@@ -95,3 +96,4 @@
 		</div>
 	</div>
 </p-dialog>
+-->

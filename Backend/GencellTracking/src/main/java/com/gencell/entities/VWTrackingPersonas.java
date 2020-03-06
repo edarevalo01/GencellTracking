@@ -3,19 +3,16 @@ package com.gencell.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
-import org.hibernate.annotations.Subselect;
 
 @Entity
 @Immutable
-//@Subselect("select * from VWTrackingPersonas")
 public class VWTrackingPersonas {
 	
 	@Id
-	@Column(name = "idPersona")
-	private String idPersona;
+	@Column(name = "idPaciente")
+	private String idPaciente;
 	
 	@Column(name = "numeroDocumento")
 	private String numeroDocumento;
@@ -35,21 +32,21 @@ public class VWTrackingPersonas {
 	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "telefonoFijo")
-	private String telefonoFijo;
-	
-	@Column(name = "telefonoCelular")
-	private String telefonoCelular;
+	@Column(name = "celular")
+	private String celular;
 	
 	@Column(name = "nombreCiudad")
 	private String nombreCiudad;
 
-	public String getIdPersona() {
-		return idPersona;
+	@Column(name = "idCliente")
+	private String idCliente;
+
+	public String getIdPaciente() {
+		return idPaciente;
 	}
 
-	public void setIdPersona(String idPersona) {
-		this.idPersona = idPersona;
+	public void setIdPaciente(String idPaciente) {
+		this.idPaciente = idPaciente;
 	}
 
 	public String getNumeroDocumento() {
@@ -100,20 +97,12 @@ public class VWTrackingPersonas {
 		this.email = email;
 	}
 
-	public String getTelefonoFijo() {
-		return telefonoFijo;
+	public String getCelular() {
+		return celular;
 	}
 
-	public void setTelefonoFijo(String telefonoFijo) {
-		this.telefonoFijo = telefonoFijo;
-	}
-
-	public String getTelefonoCelular() {
-		return telefonoCelular;
-	}
-
-	public void setTelefonoCelular(String telefonoCelular) {
-		this.telefonoCelular = telefonoCelular;
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 
 	public String getNombreCiudad() {
@@ -124,4 +113,12 @@ public class VWTrackingPersonas {
 		this.nombreCiudad = nombreCiudad;
 	}
 
+	public String getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(String idCliente) {
+		this.idCliente = idCliente;
+	}
+	
 }

@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan (basePackages="com.gencell, com.gencell.entities, com.gencell.repositories, com.gencell.services")
+@ComponentScan (basePackages="com.gencell, com.gencell.dto, com.gencell.entities, com.gencell.repositories, com.gencell.services")
 @EntityScan(basePackages = {"com.gencell.entities"}) 
 @EnableJpaRepositories ("com.gencell.repositories")
 public class GencellTrackingApplication extends SpringBootServletInitializer {
