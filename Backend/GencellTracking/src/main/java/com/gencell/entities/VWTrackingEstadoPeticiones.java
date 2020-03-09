@@ -1,5 +1,6 @@
 package com.gencell.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,23 +10,32 @@ import org.hibernate.annotations.Immutable;
 @Immutable
 public class VWTrackingEstadoPeticiones {
 	
-	@Id
+	@Column(name = "idPaciente")
 	private String idPaciente;
 	
+	@Column(name = "idEstado")
 	private String idEstado;
 	
+	@Column(name = "idCliente")
 	private String idCliente;
 	
+	@Column(name = "idPeticion")
 	private String idPeticion;
 	
+	@Column(name = "activo")
 	private String activo;
 	
+	@Column(name = "descripcion")
 	private String descripcion;
-	
+
+	@Id
+	@Column(name = "fechaCreacion")
 	private String fechaCreacion;
 	
+	@Column(name = "diagnostico")
 	private String diagnostico;
 	
+	@Column(name = "observaciones")
 	private String observaciones;
 
 	public String getIdPaciente() {

@@ -40,6 +40,9 @@ public class VWTrackingPersonas {
 
 	@Column(name = "idCliente")
 	private String idCliente;
+	
+	@Column(name = "usuario")
+	private String usuario;
 
 	public String getIdPaciente() {
 		return idPaciente;
@@ -119,6 +122,14 @@ public class VWTrackingPersonas {
 
 	public void setIdCliente(String idCliente) {
 		this.idCliente = idCliente;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 	
 }

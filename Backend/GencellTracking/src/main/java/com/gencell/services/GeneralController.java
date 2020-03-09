@@ -1,14 +1,14 @@
 package com.gencell.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gencell.dto.Response;
-import com.gencell.entities.VWTrackingEstadoPeticiones;
 import com.gencell.entities.VWTrackingPersonas;
 import com.gencell.repositories.TrackingEstadoPeticiones;
 import com.gencell.repositories.TrackingPersonas;
@@ -43,31 +43,63 @@ public class GeneralController {
 			return new Response(Response.FAIL, "Usuario o contraseña incorrectos");
 		}
 	}
+	
+	@RequestMapping(path = "/getPersonaByUsuario", method = RequestMethod.GET)
+	public Response getPersonaByUsuario(@RequestParam String usuario) {
+		try {
+			Optional<VWTrackingPersonas> optPer = personas.findByUsuario(usuario);
+			if(!optPer.isPresent()) return new Response(Response.FAIL, "El usuario no existe");
+			return new Response(Response.OK, optPer.get());
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
+	}
+	
+	@RequestMapping(path = "/getPersonaById", method = RequestMethod.GET)
+	public Response getPersonaById(@RequestParam String idPersona) {
+		try {
+			Optional<VWTrackingPersonas> optPer = personas.findByIdPaciente(idPersona);
+			if(!optPer.isPresent()) return new Response(Response.FAIL, "El usuario no existe");
+			return new Response(Response.OK, optPer.get());
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
+	}
+	
+	@RequestMapping(path = "/getPersonasByCliente", method = RequestMethod.GET)
+	public Response getPersonasByCliente(@RequestParam String idCliente) {
+		try {
+			return new Response(Response.OK, personas.findAllByIdCliente(idCliente));
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
+	}
 
-	@CrossOrigin
-	@RequestMapping(path = "/getAllPersonas", method = RequestMethod.GET)
-	public Response getAllUsers() {
-		Iterable<VWTrackingPersonas> personasIterable = personas.findAll();
-		return new Response(Response.OK, personasIterable);
+	@RequestMapping(path = "/getEstadosByPaciente", method = RequestMethod.GET)
+	public Response getEstadosByPaciente(@RequestParam String idPaciente) {
+		try {
+			return new Response(Response.OK, estadoPeticiones.findAllByIdPaciente(idPaciente));
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
 	}
 	
-	@CrossOrigin
-	@RequestMapping(path = "/getAllEstados", method = RequestMethod.GET)
-	public Response getAllEstados() {
-		Iterable<VWTrackingEstadoPeticiones> estadosIterable = estadoPeticiones.findAll();
-		return new Response(Response.OK, estadosIterable);
+	@RequestMapping(path = "/getEstadosByCliente", method = RequestMethod.GET)
+	public Response getEstadosByCliente(@RequestParam String idCliente) {
+		try {
+			return new Response(Response.OK, estadoPeticiones.findAllByIdCliente(idCliente));
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
 	}
 	
-	@CrossOrigin
-	@RequestMapping(path = "/getEstadosByIdPaciente")
-	public Iterable<VWTrackingEstadoPeticiones> getEstadosByIdPaciente(@RequestParam String idPaciente) {
-		return estadoPeticiones.findAllByIdPaciente(idPaciente);
-	}
-	
-	@RequestMapping(path = "/getEstadosByIdPeticion")
-	public Iterable<VWTrackingEstadoPeticiones> getEstadosByIdPeticion(@RequestParam String idPeticion) {
-//		System.out.println(estadoPeticiones.findAllByIdPeticion(idPeticion).);
-		return estadoPeticiones.findAllByIdPeticion(idPeticion);
+	@RequestMapping(path = "/getEstadosByPeticion", method = RequestMethod.GET)
+	public Response getEstadosByPeticion(@RequestParam String idPeticion) {
+		try {
+			return new Response(Response.OK, estadoPeticiones.findAllByIdPeticion(idPeticion));
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
 	}
 
 }
