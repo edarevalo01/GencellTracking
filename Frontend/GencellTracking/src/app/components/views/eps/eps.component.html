@@ -1,39 +1,41 @@
 <div class="total-page" *ngIf="infoCargada">
 	<div class="nombre-persona">
 		<!-- TODO: Arreglar este nombre -->
-		<p><b>Bienvenido: </b>EPS Colsanitas (?)</p>
+		<p>
+			<b>{{ stringHelper.getResource("lbl-bienvenido") }}: </b>EPS Colsanitas (?)
+		</p>
 	</div>
 
 	<div class="container-personas">
 		<p-table #dt [value]="listaPersonas" [paginator]="true" [rows]="10">
 			<ng-template pTemplate="caption">
-				Lista de pacientes
+				{{ stringHelper.getResource("tab-caption") }}
 			</ng-template>
 
 			<ng-template pTemplate="header">
 				<tr>
 					<th class="ui-p-1">
-						Documento
+						{{ stringHelper.getResource("tab-documento") }}
 						<input pInputText type="text" (input)="dt.filter($event.target.value, 'numeroDocumento', 'contains')" />
 					</th>
 					<th class="ui-p-2">
-						Nombre Completo
+						{{ stringHelper.getResource("tab-nombre") }}
 						<input pInputText type="text" (input)="dt.filter($event.target.value, 'nombreCompleto', 'contains')" />
 					</th>
 					<th class="ui-p-3">
-						Correo electrónico
+						{{ stringHelper.getResource("tab-correo") }}
 						<input pInputText type="text" (input)="dt.filter($event.target.value, 'email', 'contains')" />
 					</th>
 					<th class="ui-p-4">
-						Celular
+						{{ stringHelper.getResource("tab-celular") }}
 						<input pInputText type="text" (input)="dt.filter($event.target.value, 'celular', 'contains')" />
 					</th>
 					<th class="ui-p-5">
-						Ciudad
+						{{ stringHelper.getResource("tab-ciudad") }}
 						<input pInputText type="text" (input)="dt.filter($event.target.value, 'nombreCiudad', 'contains')" />
 					</th>
 					<th class="ui-p-1">
-						Ver resumen
+						{{ stringHelper.getResource("tab-resumen") }}
 					</th>
 				</tr>
 			</ng-template>
@@ -50,7 +52,7 @@
 					<td class="ui-p-3">{{ persona.email | lowercase }}</td>
 					<td class="ui-p-4">{{ persona.celular }}</td>
 					<td class="ui-p-5">{{ persona.nombreCiudad | titlecase }}</td>
-					<td class="ui-p-1" (click)="openPersona(persona.idPaciente)">Ver Examenes</td>
+					<td class="ui-p-1" (click)="openPersona(persona.idPaciente)">{{ stringHelper.getResource("tab-examenes") }}</td>
 				</tr>
 			</ng-template>
 		</p-table>
@@ -58,7 +60,7 @@
 </div>
 
 <p-dialog
-	header="Examenes"
+	[header]="stringHelper.getResource('dlg-header-examenes')"
 	[(visible)]="displayPersona"
 	[modal]="true"
 	[style]="{ width: '70%', 'max-width': '100%', 'max-height': '100%' }"

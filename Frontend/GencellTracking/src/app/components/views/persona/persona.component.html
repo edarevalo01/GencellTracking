@@ -1,25 +1,36 @@
 <div class="total-page">
 	<div class="nombre-persona" *ngIf="infoCargada">
-		<p><b>Bienvenido: </b>{{ persona.primerNombre + " " + persona.primerApellido | titlecase }}</p>
+		<p>
+			<b>{{ stringHelper.getResource("lbl-bienvenido") }}: </b>
+			{{ persona.primerNombre + " " + persona.primerApellido | titlecase }}
+		</p>
 	</div>
 
 	<div class="container-examenes" *ngIf="infoCargada">
 		<div class="cant-examenes">
-			Resumen de estado de exámenes: <b>{{ cantidadPeticiones }} resúmenes disponibles</b>
+			{{ stringHelper.getResource("lbl-resumen-1") }}:
+			<b> {{ cantidadPeticiones }} {{ stringHelper.getResource("lbl-resumen-2") }}</b>
 		</div>
 		<hr class="solid" />
 		<div class="examen" *ngFor="let peticion of peticiones">
-			<span
-				><b>{{ peticion.examenes[0].diagnostico }}</b> | <b>Fecha creación:</b> {{ peticion.examenes[0].fechaCreacion }} |
+			<span>
+				<b>{{ peticion.examenes[0].diagnostico }}</b> |
+				<b> {{ stringHelper.getResource("lbl-fecha") }}: </b>
+				{{ peticion.examenes[0].fechaCreacion }} |
 			</span>
 			<span *ngIf="!canceladoDevolucion">
 				<span *ngFor="let examen of peticion.estados">
-					<span *ngIf="examen.activo == 'S'"> <b>Estado:</b> {{ examen.nombre }} </span>
+					<span *ngIf="examen.activo == 'S'">
+						<b> {{ stringHelper.getResource("lbl-estado") }}: </b>
+						{{ examen.nombre }}
+					</span>
 				</span>
 			</span>
 			<span *ngIf="canceladoDevolucion">
 				<span>
-					<b>Estado:</b> {{ canceladoDevolucionObj.nombre | titlecase }} | <b>Motivo:</b>
+					<b> {{ stringHelper.getResource("lbl-estado") }}: </b>
+					{{ canceladoDevolucionObj.nombre | titlecase }} |
+					<b>{{ stringHelper.getResource("lbl-motivo") }}: </b>
 					{{ canceladoDevolucionObj.observacion | titlecase }}
 				</span>
 			</span>

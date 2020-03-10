@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, OnDestroy } from "@angular/core";
-import { Persona } from "src/app/model/persona";
 import { Router } from "@angular/router";
+import { StringResourceHelper } from "src/app/model/string-resource-helper";
 import { GeneralService } from "src/app/services/general.service";
 import { Respuesta } from "src/app/model/respuesta";
+import { Persona } from "src/app/model/persona";
 import { EstadoPeticiones } from "src/app/model/estado-peticiones";
 
 @Component({
@@ -11,6 +12,7 @@ import { EstadoPeticiones } from "src/app/model/estado-peticiones";
 	styleUrls: ["./persona.component.scss"]
 })
 export class PersonaComponent implements OnInit, OnDestroy {
+	public stringHelper: StringResourceHelper = new StringResourceHelper("persona-component");
 	@Input("idPersonaFrame") idPersonaFrame: string;
 	private idPersona: string = "";
 	private respuestaPersona: Respuesta;
@@ -76,7 +78,6 @@ export class PersonaComponent implements OnInit, OnDestroy {
 				if (this.respuestaPeticion.status == "fail") {
 					// TODO: Implementar TOAST
 				} else if (this.respuestaPeticion.status == "ok") {
-					// TODO: Verificar si tiene examenes, si no que muestre mensaje
 					this.peticiones = this.respuestaPeticion.message;
 					this.infoCargada = true;
 					this.getCantidadPeticiones();
@@ -108,12 +109,12 @@ export class PersonaComponent implements OnInit, OnDestroy {
 	}
 
 	public estados: any[] = [
-		{ estado: "21", nombre: "De Ingresos a Asignación de Envíos", activo: "E" },
-		{ estado: "5", nombre: "Paso de Ingresos a Envíos", activo: "E" },
-		{ estado: "6", nombre: "Paso de Envíos a Coordinación de Transcripción", activo: "E" },
-		{ estado: "8", nombre: "Paso de Coordinación de Transcripción a Interpretación", activo: "E" },
-		{ estado: "12", nombre: "Gestión de Resultados, en Validación de Genetista", activo: "E" },
-		{ estado: "14", nombre: "En Revisión Final de Envío de Resultados", activo: "E" },
-		{ estado: "15", nombre: "Resultados enviados", activo: "E" }
+		{ estado: "21", nombre: this.stringHelper.getResource("estado-21"), activo: "E" },
+		{ estado: "5", nombre: this.stringHelper.getResource("estado-5"), activo: "E" },
+		{ estado: "6", nombre: this.stringHelper.getResource("estado-6"), activo: "E" },
+		{ estado: "8", nombre: this.stringHelper.getResource("estado-8"), activo: "E" },
+		{ estado: "12", nombre: this.stringHelper.getResource("estado-12"), activo: "E" },
+		{ estado: "14", nombre: this.stringHelper.getResource("estado-14"), activo: "E" },
+		{ estado: "15", nombre: this.stringHelper.getResource("estado-15"), activo: "E" }
 	];
 }

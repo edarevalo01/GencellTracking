@@ -1,0 +1,40 @@
+{
+	"login-component": {
+		"lbl-bienvenido": "Bienvenido"
+	},
+
+	"main-component": {
+		"btn-informes": "Informes",
+		"btn-salir": "Salir",
+		"footer-lbl": "Copyright © 2020 Gencell Pharma."
+	},
+
+	"eps-component": {
+		"lbl-bienvenido": "Bienvenido",
+		"tab-caption": "Lista de pacientes",
+		"tab-documento": "Documento",
+		"tab-nombre": "Nombre Completo",
+		"tab-correo": "Correo Electrónico",
+		"tab-celular": "Celular",
+		"tab-ciudad": "Ciudad",
+		"tab-resumen": "Ver Resumen",
+		"tab-examenes": "Ver Examenes",
+		"dlg-header-examenes": "Examenes"
+	},
+
+	"persona-component": {
+		"lbl-bienvenido": "Bienvenido",
+		"lbl-resumen-1": "Resumen de estado de exámenes",
+		"lbl-resumen-2": "resúmenes disponibles",
+		"lbl-fecha": "Fecha creación",
+		"lbl-estado": "Estado",
+		"lbl-motivo": "Motivo",
+		"estado-21": "De Ingresos a Asignación de Envíos",
+		"estado-5": "Paso de Ingresos a Envíos",
+		"estado-6": "Paso de Envíos a Coordinación de Transcripción",
+		"estado-8": "Paso de Coordinación de Transcripción a Interpretación",
+		"estado-12": "Gestión de Resultados, en Validación de Genetista",
+		"estado-14": "En Revisión Final de Envío de Resultados",
+		"estado-15": "Resultados enviados"
+	}
+}

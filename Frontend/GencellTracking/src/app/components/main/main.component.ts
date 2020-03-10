@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { StringResourceHelper } from "src/app/model/string-resource-helper";
 
 @Component({
 	selector: "app-main",
@@ -7,19 +8,20 @@ import { Router } from "@angular/router";
 	styleUrls: ["./main.component.scss"]
 })
 export class MainComponent implements OnInit {
+	public stringHelper: StringResourceHelper = new StringResourceHelper("main-component");
 	public idVista: string = "";
 
-	constructor(private router: Router) {
-		this.idVista = localStorage.getItem("vdN9vH4WuD");
-		if (!this.idVista) {
-			this.salir();
-		}
-	}
+	constructor(private router: Router) {}
 
 	salir() {
 		localStorage.clear();
 		this.router.navigateByUrl("login");
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.idVista = localStorage.getItem("vdN9vH4WuD");
+		if (!this.idVista) {
+			this.salir();
+		}
+	}
 }

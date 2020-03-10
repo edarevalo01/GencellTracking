@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
-import { Persona } from "src/app/model/persona";
+import { StringResourceHelper } from "src/app/model/string-resource-helper";
 import { GeneralService } from "src/app/services/general.service";
 import { Respuesta } from "src/app/model/respuesta";
+import { Persona } from "src/app/model/persona";
 
 @Component({
 	selector: "app-eps",
@@ -10,6 +11,7 @@ import { Respuesta } from "src/app/model/respuesta";
 	styleUrls: ["./eps.component.scss"]
 })
 export class EpsComponent implements OnInit, OnDestroy {
+	public stringHelper: StringResourceHelper = new StringResourceHelper("eps-component");
 	public idEps: string = "";
 	public idPersonaSelected: string = "";
 	public respuestaPersonas: Respuesta;

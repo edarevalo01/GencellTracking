@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { StringResourceHelper } from "src/app/model/string-resource-helper";
 
 @Component({
 	selector: "app-login",
@@ -7,6 +8,8 @@ import { Router } from "@angular/router";
 	styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
+	public stringHelper: StringResourceHelper = new StringResourceHelper("login-component");
+
 	constructor(private router: Router) {}
 
 	ngOnInit() {}

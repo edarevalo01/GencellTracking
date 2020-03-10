@@ -5,8 +5,21 @@
 		</div>
 
 		<div class="ui-toolbar-group-right">
-			<!-- <button pButton icon="pi pi-search" iconPos="left" class="button-toolbar" label="Informes"></button> -->
-			<button pButton icon="pi pi-sign-out" iconPos="left" class="button-toolbar" label="Salir" (click)="salir()"></button>
+			<!-- <button
+				pButton
+				icon="pi pi-search"
+				iconPos="left"
+				class="button-toolbar"
+				[label]="stringHelper.getResource('btn-informes')"
+			></button> -->
+			<button
+				pButton
+				icon="pi pi-sign-out"
+				iconPos="left"
+				class="button-toolbar"
+				[label]="stringHelper.getResource('btn-salir')"
+				(click)="salir()"
+			></button>
 		</div>
 	</p-toolbar>
 
@@ -19,6 +32,6 @@
 	</div>
 
 	<footer class="footer-style">
-		<p>Copyright © 2020 Gencell Pharma.</p>
+		<p>{{ stringHelper.getResource("footer-lbl") }}</p>
 	</footer>
 </div>
