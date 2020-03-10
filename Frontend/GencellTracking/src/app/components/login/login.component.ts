@@ -13,8 +13,10 @@ export class LoginComponent implements OnInit {
 
 	iniciarSesion(idUser: number) {
 		if (idUser == 1) {
+			sessionStorage.setItem("f0Y9MFF4ZX", "1534");
 			this.router.navigateByUrl("persona");
 		} else if (idUser == 2) {
+			sessionStorage.setItem("uFZ2n4celu", "24");
 			this.router.navigateByUrl("eps");
 		}
 	}

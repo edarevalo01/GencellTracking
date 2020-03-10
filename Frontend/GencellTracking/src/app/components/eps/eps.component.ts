@@ -46,23 +46,23 @@ export class EpsComponent implements OnInit {
 	ngOnInit() {}
 
 	getPacientes() {
-		this.service.getAllPersonas().subscribe(
-			respuestaObs => {
-				this.respuesta = respuestaObs;
-				console.log(respuestaObs);
-			},
-			error => {
-				console.error(error);
-			},
-			() => {
-				if (this.respuesta.status == "ok") {
-					this.pacientes = this.respuesta.message;
-					this.yahay = true;
-				} else {
-					console.error(this.respuesta.message);
-				}
-			}
-		);
+		// this.service.getAllPersonas().subscribe(
+		// 	respuestaObs => {
+		// 		this.respuesta = respuestaObs;
+		// 		console.log(respuestaObs);
+		// 	},
+		// 	error => {
+		// 		console.error(error);
+		// 	},
+		// 	() => {
+		// 		if (this.respuesta.status == "ok") {
+		// 			this.pacientes = this.respuesta.message;
+		// 			this.yahay = true;
+		// 		} else {
+		// 			console.error(this.respuesta.message);
+		// 		}
+		// 	}
+		// );
 	}
 
 	// openPersona(idPersona: string) {

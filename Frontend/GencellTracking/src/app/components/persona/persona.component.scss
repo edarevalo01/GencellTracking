@@ -68,9 +68,21 @@
 			margin: 0px;
 		}
 		.p-col {
-			background-color: skyblue; //temporal, solo para ver como se ve :'v
+			// background-color: skyblue; //temporal, solo para ver como se ve :'v
 			padding: 10px 6px;
 			border: 0.5px solid $white;
+		}
+		.red-color {
+			background-color: #ff2200;
+		}
+		.orange-color {
+			background-color: #ffaa00;
+		}
+		.green-color {
+			background-color: #c8ff00;
+		}
+		.none-color {
+			background-color: rgba(135, 207, 235, 0.493);
 		}
 		.box {
 			color: $transparent;
