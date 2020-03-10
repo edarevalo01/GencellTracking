@@ -9,8 +9,9 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/login/login.component";
-import { PersonaComponent } from "./components/persona/persona.component";
-import { EpsComponent } from "./components/eps/eps.component";
+import { MainComponent } from "./components/main/main.component";
+import { PersonaComponent } from "./components/views/persona/persona.component";
+import { EpsComponent } from "./components/views/eps/eps.component";
 
 // Primeng Components
 import { ButtonModule } from "primeng/button";
@@ -23,7 +24,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { DialogModule } from "primeng/dialog";
 
 @NgModule({
-	declarations: [AppComponent, LoginComponent, PersonaComponent, EpsComponent],
+	declarations: [AppComponent, LoginComponent, MainComponent, PersonaComponent, EpsComponent],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,

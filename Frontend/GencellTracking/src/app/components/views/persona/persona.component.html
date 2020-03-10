@@ -1,15 +1,4 @@
 <div class="total-page">
-	<p-toolbar class="toolbar-style">
-		<div class="ui-toolbar-group-left">
-			<img src="assets/images/logo-horizontal-blanco.png" alt="logo-gencell" width="140px" class="img-logo" />
-		</div>
-
-		<div class="ui-toolbar-group-right">
-			<button pButton icon="pi pi-search" iconPos="left" class="button-toolbar" label="Informes"></button>
-			<button pButton icon="pi pi-calendar" iconPos="left" class="button-toolbar" label="Salir" (click)="salir()"></button>
-		</div>
-	</p-toolbar>
-
 	<div class="nombre-persona" *ngIf="infoCargada">
 		<p><b>Bienvenido: </b>{{ persona.primerNombre + " " + persona.primerApellido | titlecase }}</p>
 	</div>
@@ -48,14 +37,12 @@
 						'none-color': col.activo == 'E'
 					}"
 					tooltipPosition="top"
+					appendTo="body"
+					tooltipZIndex="20000"
 				>
 					<div class="box">{{ " . " }}</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<footer class="footer-style">
-		<p>Copyright © 2020 Gencell Pharma.</p>
-	</footer>
 </div>

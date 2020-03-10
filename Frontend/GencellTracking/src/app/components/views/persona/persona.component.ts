@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { Persona } from "src/app/model/persona";
 import { Router } from "@angular/router";
 import { GeneralService } from "src/app/services/general.service";
@@ -10,7 +10,8 @@ import { EstadoPeticiones } from "src/app/model/estado-peticiones";
 	templateUrl: "./persona.component.html",
 	styleUrls: ["./persona.component.scss"]
 })
-export class PersonaComponent implements OnInit {
+export class PersonaComponent implements OnInit, OnDestroy {
+	@Input("idPersonaFrame") idPersonaFrame: string;
 	private idPersona: string = "";
 	private respuestaPersona: Respuesta;
 	private respuestaPeticion: Respuesta;
@@ -19,15 +20,27 @@ export class PersonaComponent implements OnInit {
 	public peticiones: EstadoPeticiones[] = [];
 	public cantidadPeticiones: number = 0;
 	public infoCargada: boolean = false;
+
 	public canceladoDevolucion: boolean = false;
 	public canceladoDevolucionObj: any;
 
-	constructor(private service: GeneralService, private router: Router) {
-		this.idPersona = sessionStorage.getItem("f0Y9MFF4ZX");
+	constructor(private service: GeneralService, private router: Router) {}
+
+	ngOnInit() {
+		this.idPersona = localStorage.getItem("f0Y9MFF4ZX");
 		if (!this.idPersona) {
-			this.router.navigateByUrl("login");
+			// TODO: Implementar TOAST
+			if (this.idPersonaFrame) {
+				this.idPersona = this.idPersonaFrame;
+			} else {
+				this.router.navigateByUrl("login");
+			}
 		}
 		this.getPersona();
+	}
+
+	ngOnDestroy() {
+		localStorage.clear();
 	}
 
 	getPersona() {
@@ -36,10 +49,12 @@ export class PersonaComponent implements OnInit {
 				this.respuestaPersona = respuestaObs;
 			},
 			error => {
+				// TODO: Implementar TOAST
 				console.error(error);
 			},
 			() => {
 				if (this.respuestaPersona.status == "fail") {
+					// TODO: Implementar TOAST
 				} else if (this.respuestaPersona.status == "ok") {
 					this.persona = this.respuestaPersona.message;
 					this.getPeticiones();
@@ -54,11 +69,14 @@ export class PersonaComponent implements OnInit {
 				this.respuestaPeticion = respuestaObs;
 			},
 			error => {
+				// TODO: Implementar TOAST
 				console.error(error);
 			},
 			() => {
 				if (this.respuestaPeticion.status == "fail") {
+					// TODO: Implementar TOAST
 				} else if (this.respuestaPeticion.status == "ok") {
+					// TODO: Verificar si tiene examenes, si no que muestre mensaje
 					this.peticiones = this.respuestaPeticion.message;
 					this.infoCargada = true;
 					this.getCantidadPeticiones();
@@ -68,6 +86,7 @@ export class PersonaComponent implements OnInit {
 	}
 
 	getCantidadPeticiones() {
+		//FIXME: Intentar mejorar esto
 		this.cantidadPeticiones = this.peticiones.length;
 		this.peticiones.map(peticion => {
 			peticion.estados = this.estados;
@@ -87,13 +106,6 @@ export class PersonaComponent implements OnInit {
 			});
 		});
 	}
-
-	salir() {
-		sessionStorage.clear();
-		this.router.navigateByUrl("login");
-	}
-
-	ngOnInit() {}
 
 	public estados: any[] = [
 		{ estado: "21", nombre: "De Ingresos a Asignación de Envíos", activo: "E" },

@@ -1,5 +1,5 @@
 export const environment = {
-	production: false,
+	production: true,
 	urlLogin: "http://localhost:8080/login",
 	urlGetPersonaByUsuario: "http://localhost:8080/getPersonaByUsuario",
 	urlGetPersonaById: "http://localhost:8080/getPersonaById",

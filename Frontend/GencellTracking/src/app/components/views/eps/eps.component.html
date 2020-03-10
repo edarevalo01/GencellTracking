@@ -1,0 +1,74 @@
+<div class="total-page" *ngIf="infoCargada">
+	<div class="nombre-persona">
+		<!-- TODO: Arreglar este nombre -->
+		<p><b>Bienvenido: </b>EPS Colsanitas (?)</p>
+	</div>
+
+	<div class="container-personas">
+		<p-table #dt [value]="listaPersonas" [paginator]="true" [rows]="10">
+			<ng-template pTemplate="caption">
+				Lista de pacientes
+			</ng-template>
+
+			<ng-template pTemplate="header">
+				<tr>
+					<th class="ui-p-1">
+						Documento
+						<input pInputText type="text" (input)="dt.filter($event.target.value, 'numeroDocumento', 'contains')" />
+					</th>
+					<th class="ui-p-2">
+						Nombre Completo
+						<input pInputText type="text" (input)="dt.filter($event.target.value, 'nombreCompleto', 'contains')" />
+					</th>
+					<th class="ui-p-3">
+						Correo electrónico
+						<input pInputText type="text" (input)="dt.filter($event.target.value, 'email', 'contains')" />
+					</th>
+					<th class="ui-p-4">
+						Celular
+						<input pInputText type="text" (input)="dt.filter($event.target.value, 'celular', 'contains')" />
+					</th>
+					<th class="ui-p-5">
+						Ciudad
+						<input pInputText type="text" (input)="dt.filter($event.target.value, 'nombreCiudad', 'contains')" />
+					</th>
+					<th class="ui-p-1">
+						Ver resumen
+					</th>
+				</tr>
+			</ng-template>
+
+			<ng-template pTemplate="body" let-persona>
+				<tr>
+					<td class="ui-p-1">{{ persona.numeroDocumento }}</td>
+					<td class="ui-p-2">
+						{{
+							persona.primerNombre + " " + persona.segundoNombre + " " + persona.primerApellido + " " + persona.segundoApellido
+								| titlecase
+						}}
+					</td>
+					<td class="ui-p-3">{{ persona.email | lowercase }}</td>
+					<td class="ui-p-4">{{ persona.celular }}</td>
+					<td class="ui-p-5">{{ persona.nombreCiudad | titlecase }}</td>
+					<td class="ui-p-1" (click)="openPersona(persona.idPaciente)">Ver Examenes</td>
+				</tr>
+			</ng-template>
+		</p-table>
+	</div>
+</div>
+
+<p-dialog
+	header="Examenes"
+	[(visible)]="displayPersona"
+	[modal]="true"
+	[style]="{ width: '70%', 'max-width': '100%', 'max-height': '100%' }"
+	[maximizable]="true"
+	[responsive]="false"
+	[baseZIndex]="10000"
+	[draggable]="false"
+	[resizable]="true"
+>
+	<div class="container-examenes" *ngIf="displayPersona">
+		<app-persona [idPersonaFrame]="idPersonaSelected"></app-persona>
+	</div>
+</p-dialog>

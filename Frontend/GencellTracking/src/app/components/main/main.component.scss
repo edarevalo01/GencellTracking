@@ -1,0 +1,48 @@
+@import "../../../styles.scss";
+
+.total-page {
+	width: 100vw;
+	height: 100vh;
+	background-color: $background-grey;
+}
+
+::ng-deep {
+	.ui-toolbar {
+		background-image: url("/assets/images/background.jpg") !important;
+		background-position: bottom;
+		background-repeat: no-repeat;
+		border: 0px solid $white !important;
+		padding: 0px !important;
+	}
+	.ui-corner-all {
+		border-radius: 0px !important;
+	}
+}
+
+.img-logo {
+	margin: 8px 15px;
+}
+
+.button-toolbar {
+	background-color: $transparent;
+	border: 0px solid $transparent;
+	width: 120px;
+	height: 61.06px;
+	&:hover {
+		background-color: $hover-menu !important;
+	}
+}
+
+.container-views {
+	width: 100%;
+	height: calc(100% - 61.06px);
+}
+
+.footer-style {
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+	text-align: center;
+	font-size: 12px;
+	padding: 5px 0px;
+}

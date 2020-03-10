@@ -1,0 +1,24 @@
+<div class="total-page">
+	<p-toolbar class="toolbar-style">
+		<div class="ui-toolbar-group-left">
+			<img src="assets/images/logo-horizontal-blanco.png" alt="logo-gencell" width="140px" class="img-logo" />
+		</div>
+
+		<div class="ui-toolbar-group-right">
+			<!-- <button pButton icon="pi pi-search" iconPos="left" class="button-toolbar" label="Informes"></button> -->
+			<button pButton icon="pi pi-sign-out" iconPos="left" class="button-toolbar" label="Salir" (click)="salir()"></button>
+		</div>
+	</p-toolbar>
+
+	<div *ngIf="idVista == 1">
+		<app-persona></app-persona>
+	</div>
+
+	<div *ngIf="idVista == 2">
+		<app-eps></app-eps>
+	</div>
+
+	<footer class="footer-style">
+		<p>Copyright © 2020 Gencell Pharma.</p>
+	</footer>
+</div>

@@ -5,12 +5,17 @@ body {
 }
 
 // Colors
-$white: #ffffff;
+$white: rgb(255, 255, 255);
 $transparent: transparent;
-$background-grey: #f6f6f6;
-$hover-menu: #a51071;
-$border-color: #70707054;
-$text-color-grey: #5c5c5c;
+$background-grey: rgb(246, 246, 246);
+$hover-menu: rgb(165, 16, 113);
+$border-color: rgba(112, 112, 112, 0.329);
+$text-color-grey: rgb(92, 92, 92);
+
+$state-red-color: rgb(255, 34, 0);
+$state-orange-color: rgb(255, 170, 0);
+$state-green-color: rgb(200, 255, 0);
+$state-none-color: rgba(135, 207, 235, 0.493);
 
 //Global variables
 $global-border-radius: 8px;
