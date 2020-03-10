@@ -1,14 +1,22 @@
 package com.gencell.services;
 
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gencell.dto.Estados;
+import com.gencell.dto.Examen;
 import com.gencell.dto.Response;
+import com.gencell.entities.VWTrackingEstadoPeticiones;
 import com.gencell.entities.VWTrackingPersonas;
 import com.gencell.repositories.TrackingEstadoPeticiones;
 import com.gencell.repositories.TrackingPersonas;
@@ -16,6 +24,7 @@ import com.gencell.repositories.TrackingPersonas;
 import gencell.authenticationservice.UsuarioGencell;
 
 @RestController
+@CrossOrigin
 public class GeneralController {
 
 	@Autowired
@@ -34,7 +43,7 @@ public class GeneralController {
 		AutenticacionController aut = new AutenticacionController();
 		UsuarioGencell user = aut.AutenticarTest(usuario); 
 		//UsuarioGencell user = aut.autenticarGencellPharma(usuario, clave);
-
+		System.out.println(user.getRetorno().getMsg());
 		if (user != null && user.getRetorno() != null && "SUCCESS".equals(user.getRetorno().getMsg())) {
 			String token = aut.generarTokenByUsuario(usuario);
 			return new Response(Response.OK, token);
@@ -78,7 +87,45 @@ public class GeneralController {
 	@RequestMapping(path = "/getEstadosByPaciente", method = RequestMethod.GET)
 	public Response getEstadosByPaciente(@RequestParam String idPaciente) {
 		try {
-			return new Response(Response.OK, estadoPeticiones.findAllByIdPaciente(idPaciente));
+			Iterable<VWTrackingEstadoPeticiones> estadosCompletos = estadoPeticiones.findAllByIdPaciente(idPaciente);
+			Map<String, ArrayList<Examen>> map = new TreeMap<>();
+			for(VWTrackingEstadoPeticiones tep: estadosCompletos) {
+				if(map.containsKey(tep.getIdPeticion())) {
+					ArrayList<Examen> examenes = map.get(tep.getIdPeticion());
+					Examen e = new Examen(
+							tep.getIdPaciente(), 
+							tep.getIdCliente(), 
+							tep.getIdEstado(), 
+							tep.getActivo(), 
+							tep.getDescripcion(), 
+							tep.getFechaCreacion(), 
+							tep.getDiagnostico(), 
+							tep.getObservaciones());
+					examenes.add(e);
+					map.put(tep.getIdPeticion(), examenes);
+				}
+				else {
+					ArrayList<Examen> examenes = new ArrayList<>();
+					Examen e = new Examen(
+							tep.getIdPaciente(), 
+							tep.getIdCliente(), 
+							tep.getIdEstado(), 
+							tep.getActivo(), 
+							tep.getDescripcion(), 
+							tep.getFechaCreacion(), 
+							tep.getDiagnostico(), 
+							tep.getObservaciones());
+					examenes.add(e);
+					map.put(tep.getIdPeticion(), examenes);
+				}
+			}
+			Set<String> keys = map.keySet();
+			ArrayList<Estados> estados = new ArrayList<>();
+			for(String key: keys) {
+				 Estados estado = new Estados(key, map.get(key));
+				 estados.add(estado);
+			}
+			return new Response(Response.OK, estados);
 		} catch (Exception e) {
 			return new Response(Response.FAIL, e);
 		}
