@@ -1,17 +1,11 @@
-import { Estado } from "./estado";
-
 export class Examen {
-	public idExamen: string;
-	public nombre: string;
+	public idPaciente: string;
+	public idCliente: string;
+	public idEstado: string;
+	public idPeticion: string;
+	public activo: string;
+	public descripcion: string;
 	public fechaCreacion: string;
-	public fechaFin: string;
-	public estado: Estado[];
-
-	constructor() {
-		this.idExamen = "";
-		this.nombre = "";
-		this.fechaCreacion = "";
-		this.fechaFin = "";
-		this.estado = [];
-	}
+	public diagnostico: string;
+	public observaciones: string;
 }
