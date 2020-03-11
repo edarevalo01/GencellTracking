@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() {}
 
-	//FIXME: Esto es temporal
+	//FIXME: Esto es temporal, intentar encriptar los id de vista y de usuario con CryptoJS
 	iniciarSesion(idUser: number) {
 		if (idUser == 1) {
 			//Paciente

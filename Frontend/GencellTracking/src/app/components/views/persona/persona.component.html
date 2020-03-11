@@ -12,6 +12,12 @@
 			<b> {{ cantidadPeticiones }} {{ stringHelper.getResource("lbl-resumen-2") }}</b>
 		</div>
 		<hr class="solid" />
+		<div class="leyenda">
+			<b>{{ stringHelper.getResource("lbl-nomenclatura") }}</b>
+			<p *ngFor="let est of estados; let i = index">
+				<b>{{ i + 1 }}:</b> {{ est.nombre }}
+			</p>
+		</div>
 		<div class="examen" *ngFor="let peticion of peticiones">
 			<span>
 				<b>{{ peticion.examenes[0].diagnostico }}</b> |
@@ -45,13 +51,17 @@
 						'red-color': i < 2 && col.activo != 'E',
 						'orange-color': i >= 2 && i < 5 && col.activo != 'E',
 						'green-color': i >= 5 && col.activo != 'E',
-						'none-color': col.activo == 'E'
+						'none-color': col.activo == 'E',
+						'from-red-to-orange-color': i == 2 && col.activo != 'E',
+						'from-orange-to-green-color': i == 4 && col.activo != 'E'
 					}"
 					tooltipPosition="top"
 					appendTo="body"
 					tooltipZIndex="20000"
 				>
-					<div class="box">{{ " . " }}</div>
+					<div [ngClass]="{ 'box-white': i <= 2 && col.activo != 'E', 'box-grey': i > 2, 'box-grey': col.activo == 'E' }">
+						{{ i + 1 }}
+					</div>
 				</div>
 			</div>
 		</div>
