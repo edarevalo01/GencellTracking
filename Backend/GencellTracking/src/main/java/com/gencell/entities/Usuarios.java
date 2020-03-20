@@ -1,5 +1,7 @@
 package com.gencell.entities;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +17,7 @@ public class Usuarios {
 	private String usuario;
 	
 	@Column(name = "fechaVencimiento")  
-	private String fechaVencimiento;
+	private Date fechaVencimiento;
 	
 	@Column(name = "estado")  
 	private String estado;
@@ -34,11 +36,11 @@ public class Usuarios {
 		this.usuario = usuario;
 	}
 
-	public String getFechaVencimiento() {
+	public Date getFechaVencimiento() {
 		return fechaVencimiento;
 	}
 
-	public void setFechaVencimiento(String fechaVencimiento) {
+	public void setFechaVencimiento(Date fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
 	}
 

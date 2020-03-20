@@ -11,5 +11,7 @@ import com.gencell.entities.Usuarios;
 public interface UsuariosRepository extends CrudRepository<Usuarios, Long> {
 	
 	public List<Usuarios> findByIdPersonas(String idPersonas);
+	
+	public List<Usuarios> findByUsuario(String usuario);
 
 }

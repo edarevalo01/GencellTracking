@@ -9,6 +9,7 @@ import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,13 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gencell.dto.Estados;
 import com.gencell.dto.Examen;
 import com.gencell.dto.Response;
+import com.gencell.dto.Usuario;
 import com.gencell.entities.Personas;
+import com.gencell.entities.UsuarioRolesAplicacion;
 import com.gencell.entities.Usuarios;
 import com.gencell.entities.VWTrackingEstadoPeticiones;
 import com.gencell.entities.VWTrackingPersonas;
 import com.gencell.repositories.PersonasRepository;
 import com.gencell.repositories.TrackingEstadoPeticionesRepository;
 import com.gencell.repositories.TrackingPersonasRepository;
+import com.gencell.repositories.UsuarioRolesAplicacionRepository;
 import com.gencell.repositories.UsuariosRepository;
 
 import gencell.authenticationservice.UsuarioGencell;
@@ -43,6 +47,9 @@ public class GeneralController {
 	
 	@Autowired
 	private UsuariosRepository usuarios;
+	
+	@Autowired
+	private UsuarioRolesAplicacionRepository usuarioRoles;
 
 	@RequestMapping(path = "/")
 	public String emptyPath() {
@@ -175,6 +182,46 @@ public class GeneralController {
 		}
 	}
 	
+	@RequestMapping(path = "/guardarPersona", method = RequestMethod.POST, headers = "Accept=application/json")
+	public Response guardarPersona(@RequestBody Personas persona) {
+		try {
+			personas.save(persona);
+			return new Response(Response.OK, personas.findByIdTipoDocumentoAndNumeroDocumento(persona.getIdTipoDocumento(), persona.getNumeroDocumento()).get(0));
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
+	}
+	
+	@RequestMapping(path = "/crearUsuario", method = RequestMethod.POST, headers = "Accept=application/json")
+	public Response crearUsuario(@RequestBody Usuario usuario) {
+		try {
+			List<Usuarios> listUser = usuarios.findByUsuario(usuario.getUsuario());
+			List<UsuarioRolesAplicacion> listUserRol = usuarioRoles.findByUsuario(usuario.getUsuario());
+			
+			if(listUser.size() != 0 || listUserRol.size() != 0) return new Response(Response.FAIL, "El usuario ya se encuentra registrado");
+			
+			Usuarios user = new Usuarios();
+			user.setUsuario(usuario.getUsuario());
+			user.setFechaVencimiento(usuario.getFechaVencimiento());
+			user.setEstado(usuario.getEstado());
+			user.setPassword(usuario.getPassword());
+			user.setIdPersonas(usuario.getIdPersonas());
+			
+			UsuarioRolesAplicacion userRol = new UsuarioRolesAplicacion();
+			userRol.setIdRol(usuario.getIdRol());
+			userRol.setIdAplicacion(usuario.getIdAplicacion());
+			userRol.setUsuario(usuario.getUsuario());
+			userRol.setEstado(usuario.getEstado());
+			
+			usuarios.save(user);
+			usuarioRoles.save(userRol);
+			
+			return new Response(Response.OK, usuario);
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
+	}
+	
 	
 	/**
 	 * TODO: Borrar :3
@@ -184,7 +231,7 @@ public class GeneralController {
 	@RequestMapping(path = "/prueba", method = RequestMethod.GET)
 	public Response prueba() {
 		try {
-			return new Response(Response.OK, usuarios.findAll());
+			return new Response(Response.OK, personas.findAll());
 		} catch (Exception e) {
 			return new Response(Response.FAIL, e);
 		}
