@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.gencell.entities.VWTrackingEstadoPeticiones;
 
 @Repository
-public interface TrackingEstadoPeticiones extends CrudRepository<VWTrackingEstadoPeticiones, Long> {
+public interface TrackingEstadoPeticionesRepository extends CrudRepository<VWTrackingEstadoPeticiones, Long> {
 	
 //	@Query(
 //		value = "SELECT * FROM gencell_dev.VWTrackingEstadoPeticiones where idPaciente = ?1",

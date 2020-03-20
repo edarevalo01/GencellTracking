@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.gencell.entities.VWTrackingPersonas;
 
 @Repository
-public interface TrackingPersonas extends CrudRepository<VWTrackingPersonas, Long> {
+public interface TrackingPersonasRepository extends CrudRepository<VWTrackingPersonas, Long> {
 	
 	public Optional<VWTrackingPersonas> findByIdPaciente(String idPaciente);
 	

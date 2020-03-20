@@ -1,6 +1,7 @@
 package com.gencell.services;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -16,10 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gencell.dto.Estados;
 import com.gencell.dto.Examen;
 import com.gencell.dto.Response;
+import com.gencell.entities.Personas;
+import com.gencell.entities.Usuarios;
 import com.gencell.entities.VWTrackingEstadoPeticiones;
 import com.gencell.entities.VWTrackingPersonas;
-import com.gencell.repositories.TrackingEstadoPeticiones;
-import com.gencell.repositories.TrackingPersonas;
+import com.gencell.repositories.PersonasRepository;
+import com.gencell.repositories.TrackingEstadoPeticionesRepository;
+import com.gencell.repositories.TrackingPersonasRepository;
+import com.gencell.repositories.UsuariosRepository;
 
 import gencell.authenticationservice.UsuarioGencell;
 
@@ -28,10 +33,16 @@ import gencell.authenticationservice.UsuarioGencell;
 public class GeneralController {
 
 	@Autowired
-	private TrackingPersonas personas;
+	private TrackingPersonasRepository trackingPersonas;
 	
 	@Autowired
-	private TrackingEstadoPeticiones estadoPeticiones;
+	private TrackingEstadoPeticionesRepository estadoPeticiones;
+	
+	@Autowired
+	private PersonasRepository personas;
+	
+	@Autowired
+	private UsuariosRepository usuarios;
 
 	@RequestMapping(path = "/")
 	public String emptyPath() {
@@ -56,7 +67,7 @@ public class GeneralController {
 	@RequestMapping(path = "/getPersonaByUsuario", method = RequestMethod.GET)
 	public Response getPersonaByUsuario(@RequestParam String usuario) {
 		try {
-			Optional<VWTrackingPersonas> optPer = personas.findByUsuario(usuario);
+			Optional<VWTrackingPersonas> optPer = trackingPersonas.findByUsuario(usuario);
 			if(!optPer.isPresent()) return new Response(Response.FAIL, "El usuario no existe");
 			return new Response(Response.OK, optPer.get());
 		} catch (Exception e) {
@@ -67,7 +78,7 @@ public class GeneralController {
 	@RequestMapping(path = "/getPersonaById", method = RequestMethod.GET)
 	public Response getPersonaById(@RequestParam String idPersona) {
 		try {
-			Optional<VWTrackingPersonas> optPer = personas.findByIdPaciente(idPersona);
+			Optional<VWTrackingPersonas> optPer = trackingPersonas.findByIdPaciente(idPersona);
 			if(!optPer.isPresent()) return new Response(Response.FAIL, "El usuario no existe");
 			return new Response(Response.OK, optPer.get());
 		} catch (Exception e) {
@@ -78,7 +89,7 @@ public class GeneralController {
 	@RequestMapping(path = "/getPersonasByCliente", method = RequestMethod.GET)
 	public Response getPersonasByCliente(@RequestParam String idCliente) {
 		try {
-			return new Response(Response.OK, personas.findAllByIdCliente(idCliente));
+			return new Response(Response.OK, trackingPersonas.findAllByIdCliente(idCliente));
 		} catch (Exception e) {
 			return new Response(Response.FAIL, e);
 		}
@@ -144,6 +155,36 @@ public class GeneralController {
 	public Response getEstadosByPeticion(@RequestParam String idPeticion) {
 		try {
 			return new Response(Response.OK, estadoPeticiones.findAllByIdPeticion(idPeticion));
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
+	}
+	
+	@RequestMapping(path = "/findUsuarioPersonaByDocumento", method = RequestMethod.GET)
+	public Response findUsuarioPersonaByDocumento(@RequestParam String tipoDocumento, @RequestParam String numeroDocumento) {
+		try {
+			List<Personas> personasList = personas.findByIdTipoDocumentoAndNumeroDocumento(tipoDocumento, numeroDocumento);
+			if(personasList.size() == 0) return new Response(Response.FAIL, "El usuario no se encuentra registrado");
+			
+			List<Usuarios> usuariosList = usuarios.findByIdPersonas(personasList.get(0).getId());
+			if(usuariosList.size() == 0) return new Response(Response.FAIL, "El usuario está creado pero no tiene un perfil asignado");
+			
+			return new Response(Response.OK, usuariosList.get(0));
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
+	}
+	
+	
+	/**
+	 * TODO: Borrar :3
+	 * Este metodo es netamente de prueba por favor BORRAR jajajaja
+	 * @return
+	 */
+	@RequestMapping(path = "/prueba", method = RequestMethod.GET)
+	public Response prueba() {
+		try {
+			return new Response(Response.OK, usuarios.findAll());
 		} catch (Exception e) {
 			return new Response(Response.FAIL, e);
 		}
