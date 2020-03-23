@@ -1,0 +1,195 @@
+.fondo-login {
+	width: 100vw;
+	height: 100vh;
+	background-image: url("../../../assets/images/background.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.login-container {
+	background-color: white;
+	box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login-container-solo {
+	height: 372.12px;
+	position: absolute;
+	top: calc(50% - 186.6px);
+}
+
+.pre-registro-container {
+	height: 360.12px;
+	position: absolute;
+	top: calc(50% - 180.6px);
+}
+
+.registro-container {
+	height: 550px;
+	position: absolute;
+	top: calc(50% - 285px);
+}
+
+.form-container {
+	height: 200px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+::ng-deep .ui-dropdown {
+	width: 100% !important;
+	height: 43px !important;
+	border: 1px solid rgb(224, 224, 224) !important;
+}
+
+::ng-deep .ui-dropdown-label {
+	background-color: rgb(245, 245, 245) !important;
+	height: 41px !important;
+	font-size: 16px !important;
+	color: #898989 !important;
+	border: 1px solid rgb(224, 224, 224) !important;
+}
+
+::ng-deep .ui-calendar {
+	width: 100% !important;
+}
+
+::ng-deep .ui-inputtext {
+	width: 100% !important;
+	height: 43px !important;
+	background-color: rgb(245, 245, 245) !important;
+	border: 1px solid rgb(224, 224, 224) !important;
+}
+
+.logo .input-doc .input-pass {
+	width: 90%;
+}
+
+.logo {
+	text-align: center;
+	color: rgb(60, 21, 97);
+	margin-top: 25px;
+}
+
+.input-doc {
+	margin-top: 25px;
+}
+
+.input-pass {
+	margin-top: 25px;
+}
+
+.input-parent {
+	width: 80%;
+	margin-left: 10%;
+	height: 43px;
+}
+
+.input-area {
+	width: 80%;
+	height: 43px;
+	background-color: rgb(245, 245, 245);
+	border: 0.5px solid rgb(224, 224, 224);
+}
+
+.button-login {
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 25px;
+	button {
+		height: 43px;
+		width: 100%;
+	}
+}
+
+.links {
+	margin-top: 25px;
+	font-size: 12px;
+	text-align: center;
+	color: rgb(100, 100, 100);
+
+	.registro {
+		color: rgb(21, 103, 180);
+		cursor: pointer;
+	}
+	.web {
+		color: rgb(21, 103, 180);
+		cursor: pointer;
+	}
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+	.login-container {
+		width: 100%;
+		left: 0%;
+	}
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+	.login-container {
+		width: 80%;
+		left: 10%;
+		border-radius: 4%;
+	}
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+	.login-container {
+		width: 50%;
+		left: 25%;
+		border-radius: 4%;
+	}
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+	.login-container {
+		width: 40%;
+		left: 30%;
+		border-radius: 4%;
+	}
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+	.login-container {
+		width: 30%;
+		left: 35%;
+		border-radius: 4%;
+	}
+}
+
+.footer-style {
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+	text-align: center;
+	font-size: 12px;
+	padding: 5px 0px;
+	color: rgb(192, 192, 192);
+}
+
+/* ScrollBar */
+
+/* width */
+::-webkit-scrollbar {
+	width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgb(105, 105, 105);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(121, 121, 121);
+}

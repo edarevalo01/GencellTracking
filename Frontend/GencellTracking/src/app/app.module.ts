@@ -22,6 +22,7 @@ import { TableModule } from "primeng/table";
 import { DropdownModule } from "primeng/dropdown";
 import { InputTextModule } from "primeng/inputtext";
 import { DialogModule } from "primeng/dialog";
+import { CalendarModule } from "primeng/calendar";
 
 @NgModule({
 	declarations: [AppComponent, LoginComponent, MainComponent, PersonaComponent, EpsComponent],
@@ -38,7 +39,8 @@ import { DialogModule } from "primeng/dialog";
 		TableModule,
 		DropdownModule,
 		InputTextModule,
-		DialogModule
+		DialogModule,
+		CalendarModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

@@ -25,6 +25,11 @@ export class GeneralService {
 		return this.http.get<Respuesta>(environment.urlGetPersonaById, { params: param });
 	}
 
+	getConvenioById(idPersona: string): Observable<Respuesta> {
+		let param = new HttpParams().set("idPersona", idPersona);
+		return this.http.get<Respuesta>(environment.urlGetConvenioById, { params: param });
+	}
+
 	getPersonasByCliente(idCliente: string): Observable<Respuesta> {
 		let param = new HttpParams().set("idCliente", idCliente);
 		return this.http.get<Respuesta>(environment.urlGetPersonasByCliente, { params: param });

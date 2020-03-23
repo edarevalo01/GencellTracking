@@ -14,8 +14,10 @@ export class EpsComponent implements OnInit, OnDestroy {
 	public stringHelper: StringResourceHelper = new StringResourceHelper("eps-component");
 	public idEps: string = "";
 	public idPersonaSelected: string = "";
+	public respuestaConvenio: Respuesta;
 	public respuestaPersonas: Respuesta;
 	public listaPersonas: Persona[] = [];
+	public convenio: Persona;
 	public infoCargada: boolean = false;
 	public displayPersona: boolean = false;
 
@@ -27,11 +29,31 @@ export class EpsComponent implements OnInit, OnDestroy {
 		if (!this.idEps) {
 			this.router.navigateByUrl("loign");
 		}
-		this.getPacientes();
+		this.getInfoConvenio();
 	}
 
 	ngOnDestroy() {
 		localStorage.clear();
+	}
+
+	getInfoConvenio() {
+		this.service.getConvenioById(this.idEps).subscribe(
+			respuestaObs => {
+				this.respuestaConvenio = respuestaObs;
+			},
+			error => {
+				//TODO: Implementar TOAST
+				console.error(error);
+			},
+			() => {
+				if (this.respuestaConvenio.status == "fail") {
+					//TODO: Implementar TOAST
+				} else if (this.respuestaConvenio.status == "ok") {
+					this.convenio = this.respuestaConvenio.message;
+					this.getPacientes();
+				}
+			}
+		);
 	}
 
 	getPacientes() {
