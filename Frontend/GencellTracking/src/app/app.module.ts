@@ -23,6 +23,8 @@ import { DropdownModule } from "primeng/dropdown";
 import { InputTextModule } from "primeng/inputtext";
 import { DialogModule } from "primeng/dialog";
 import { CalendarModule } from "primeng/calendar";
+import { ToastModule } from "primeng/toast";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
 
 @NgModule({
 	declarations: [AppComponent, LoginComponent, MainComponent, PersonaComponent, EpsComponent],
@@ -40,7 +42,9 @@ import { CalendarModule } from "primeng/calendar";
 		DropdownModule,
 		InputTextModule,
 		DialogModule,
-		CalendarModule
+		CalendarModule,
+		ToastModule,
+		ProgressSpinnerModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

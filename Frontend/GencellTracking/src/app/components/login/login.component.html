@@ -1,48 +1,49 @@
+<p-toast [style]="{ marginTop: '80px' }" position="top-center"></p-toast>
 <div class="fondo-login">
 	<!-- <span>login works!</span><br />
 	<button pButton type="button" label="Iniciar sesión Persona" (click)="iniciarSesion(1)"></button>
   <button pButton type="button" label="Iniciar sesión ESP" (click)="iniciarSesion(2)"></button> -->
 
-	<div class="login-container login-container-solo" *ngIf="false">
+	<div class="login-container login-container-solo" *ngIf="login">
 		<div class="logo">
 			<img src="assets/images/logo-horizontal-negro.png" alt="logo-gencell" width="163.91px" />
 		</div>
 		<div class="input-doc">
 			<span class="ui-float-label input-parent">
-				<input type="text" pInputText class="input-area" />
+				<input type="text" pInputText class="input-area" [(ngModel)]="docLogin" />
 				<label for="float-input">Documento</label>
 			</span>
 		</div>
 		<div class="input-pass">
 			<span class="ui-float-label input-parent">
-				<input type="text" pInputText class="input-area" type="password" />
+				<input type="text" pInputText class="input-area" type="password" [(ngModel)]="passLogin" />
 				<label for="float-input">Contraseña</label>
 			</span>
 		</div>
 		<div class="button-login">
-			<button pButton type="button" label="Buscar"></button>
+			<button pButton type="button" label="Ingresar" (click)="iniciarSesion()"></button>
 		</div>
 		<div class="links">
-			<span>Aún no estás registrado?</span><span class="registro" (click)="mostrarInscribir('top')"> Registrate aquí</span
+			<span>Aún no estás registrado?</span><span class="registro" (click)="habilitar(false, true, false)"> Registrate aquí</span
 			><br /><br />
 			<span class="web">Ir a la página web</span>
 		</div>
 	</div>
-
+	<!-- ---------------------------------------------------------------------------------------------- -->
 	<div
 		[ngClass]="{
 			'login-container': 'true',
-			'pre-registro-container': 'false',
-			'registro-container': 'true'
+			'pre-registro-container': preRegistro,
+			'registro-container': registro
 		}"
-		*ngIf="true"
+		*ngIf="!login"
 	>
 		<div class="logo">
 			<h2>Registro</h2>
 		</div>
 		<div class="input-doc">
 			<span class="ui-float-label input-parent">
-				<input type="text" pInputText class="input-area" />
+				<input type="text" pInputText class="input-area" (blur)="changeDoc()" [(ngModel)]="documentoReg" />
 				<label for="float-input">Documento</label>
 			</span>
 		</div>
@@ -59,54 +60,75 @@
 			</div>
 		</div>
 		<div class="button-login">
-			<button pButton type="button" label="Ingresar"></button>
+			<button pButton type="button" label="Buscar" (click)="getPersona()" [disabled]="!preRegistro"></button>
 		</div>
-		<div class="form-container" *ngIf="true">
+		<div class="form-container" *ngIf="registro">
 			<div class="input-doc">
 				<span class="ui-float-label input-parent">
-					<input type="text" pInputText class="input-area" />
+					<input type="text" pInputText class="input-area" [(ngModel)]="primerNombre" />
 					<label for="float-input">Primer Nombre</label>
 				</span>
 			</div>
 
 			<div class="input-doc">
 				<span class="ui-float-label input-parent">
-					<input type="text" pInputText class="input-area" />
+					<input type="text" pInputText class="input-area" [(ngModel)]="segundoNombre" />
 					<label for="float-input">Segundo Nombre</label>
 				</span>
 			</div>
 
 			<div class="input-doc">
 				<span class="ui-float-label input-parent">
-					<input type="text" pInputText class="input-area" />
+					<input type="text" pInputText class="input-area" [(ngModel)]="primerApellido" />
 					<label for="float-input">Primer Apellido</label>
 				</span>
 			</div>
 
 			<div class="input-doc">
 				<span class="ui-float-label input-parent">
-					<input type="text" pInputText class="input-area" />
+					<input type="text" pInputText class="input-area" [(ngModel)]="segundoApellido" />
 					<label for="float-input">Segundo Apellido</label>
 				</span>
 			</div>
 
 			<div class="input-doc">
 				<span class="ui-float-label input-parent">
-					<input type="text" pInputText class="input-area" />
+					<input type="text" pInputText class="input-area" [(ngModel)]="contrasena" type="password" />
+					<label for="float-input">Contraseña</label>
+				</span>
+			</div>
+
+			<div class="input-doc">
+				<div class="input-parent">
+					<p-dropdown
+						[options]="tiposPersona"
+						[(ngModel)]="personaSelected"
+						placeholder="Tipo Persona"
+						optionLabel="tipo"
+						appendTo="body"
+						baseZIndex="20000"
+						[disabled]="existePersona"
+					></p-dropdown>
+				</div>
+			</div>
+
+			<div class="input-doc">
+				<span class="ui-float-label input-parent">
+					<input type="text" pInputText class="input-area" [(ngModel)]="celular" type="number" />
 					<label for="float-input">Numero Celular</label>
 				</span>
 			</div>
 
 			<div class="input-doc">
 				<span class="ui-float-label input-parent">
-					<input type="text" pInputText class="input-area" />
+					<input type="text" pInputText class="input-area" [(ngModel)]="fijo" type="number" />
 					<label for="float-input">Numero Fijo</label>
 				</span>
 			</div>
 
 			<div class="input-doc">
 				<span class="ui-float-label input-parent">
-					<input type="text" pInputText class="input-area" />
+					<input type="text" pInputText class="input-area" [(ngModel)]="correo" [disabled]="existePersona" />
 					<label for="float-input">Correo electrónico</label>
 				</span>
 			</div>
@@ -117,9 +139,26 @@
 					<label for="float-input">Fecha Nacimiento</label>
 				</span>
 			</div>
+
+			<div class="input-doc">
+				<div class="input-parent">
+					<p-dropdown
+						[options]="generos"
+						[(ngModel)]="generoSelected"
+						placeholder="Género"
+						optionLabel="genero"
+						appendTo="body"
+						baseZIndex="20000"
+					></p-dropdown>
+				</div>
+			</div>
+
+			<div class="button-login">
+				<button pButton type="button" label="Registrar" (click)="sendData()"></button>
+			</div>
 		</div>
 		<div class="links">
-			<span class="registro" (click)="mostrarInscribir('top')">Regresar</span><br /><br />
+			<span class="registro" (click)="habilitar(true, false, false)">Regresar</span><br /><br />
 			<span class="web">Ir a la página web</span>
 		</div>
 	</div>
@@ -129,34 +168,8 @@
 	</footer>
 </div>
 
-<!-- <p-dialog
-	[header]="Registro"
-	[(visible)]="displayPosition"
-	[modal]="true"
-	[style]="{ width: '70%', 'max-width': '100%', 'max-height': '100%' }"
-	[maximizable]="true"
-	[responsive]="false"
-	[baseZIndex]="10000"
-	[resizable]="true"
->
-	<div style="overflow: hidden;">
-		<div class="input-doc">
-			<span class="ui-float-label input-parent">
-				<input type="text" pInputText class="input-area" />
-				<label for="float-input">Documento</label>
-			</span>
-		</div>
-		<div class="input-doc">
-			<span class="ui-float-label input-parent">
-				<p-dropdown
-					[options]="tiposDocumento"
-					[(ngModel)]="documentoSelected"
-					optionLabel="descrip"
-					appendTo="body"
-					baseZIndex="20000"
-				></p-dropdown>
-				<label for="float-input">Tipo Documento</label>
-			</span>
-		</div>
+<div class="ui-g-12 ui-md-12 progress" id="progress" *ngIf="progress">
+	<div class="spinner">
+		<p-progressSpinner [style]="{ width: '150px', height: '150px' }"></p-progressSpinner>
 	</div>
-</p-dialog> -->
+</div>
