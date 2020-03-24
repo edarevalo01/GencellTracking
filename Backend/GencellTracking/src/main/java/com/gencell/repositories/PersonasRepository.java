@@ -12,4 +12,6 @@ public interface PersonasRepository extends CrudRepository<Personas, Long> {
 	
 	public List<Personas> findByIdTipoDocumentoAndNumeroDocumento(String tipoDocumento, String numeroDocumento);
 	
+	public List<Personas> findById(String id);
+	
 }

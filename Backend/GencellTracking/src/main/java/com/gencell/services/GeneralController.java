@@ -61,13 +61,34 @@ public class GeneralController {
 		AutenticacionController aut = new AutenticacionController();
 		UsuarioGencell user = aut.AutenticarTest(usuario); 
 		//UsuarioGencell user = aut.autenticarGencellPharma(usuario, clave);
-		System.out.println(user.getRetorno().getMsg());
 		if (user != null && user.getRetorno() != null && "SUCCESS".equals(user.getRetorno().getMsg())) {
 			String token = aut.generarTokenByUsuario(usuario);
 			return new Response(Response.OK, token);
 		} 
 		else {
 			return new Response(Response.FAIL, "Usuario o contraseña incorrectos");
+		}
+	}
+	
+	@RequestMapping(path = "/getUsuarioByUsuario", method = RequestMethod.GET)
+	public Response getUsuarioByUsuario(@RequestParam String usuario) {
+		try {
+			List<Usuarios> listUser = usuarios.findByUsuario(usuario);
+			if(listUser.size() == 0) return new Response(Response.FAIL, "El usuario no existe");
+			return new Response(Response.OK, listUser.get(0));
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
+	}
+	
+	@RequestMapping(path = "/getTipoDocumentoById", method = RequestMethod.GET)
+	public Response getTipoDocumentoById(@RequestParam String id) {
+		try {
+			List<Personas> listPersonas = personas.findById(id);
+			if(listPersonas.size() == 0) return new Response(Response.FAIL, "El usuario no existe");
+			return new Response(Response.OK, listPersonas.get(0).getIdTipoDocumento());
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
 		}
 	}
 	
@@ -88,6 +109,17 @@ public class GeneralController {
 			Optional<VWTrackingPersonas> optPer = trackingPersonas.findByIdPaciente(idPersona);
 			if(!optPer.isPresent()) return new Response(Response.FAIL, "El usuario no existe");
 			return new Response(Response.OK, optPer.get());
+		} catch (Exception e) {
+			return new Response(Response.FAIL, e);
+		}
+	}
+	
+	@RequestMapping(path = "/getConvenioById", method = RequestMethod.GET)
+	public Response getConvenioById(@RequestParam String idPersona) {
+		try {
+			List<Personas> optPer = personas.findById(idPersona);
+			if(optPer.size() == 0) return new Response(Response.FAIL, "El usuario no existe");
+			return new Response(Response.OK, optPer.get(0));
 		} catch (Exception e) {
 			return new Response(Response.FAIL, e);
 		}
@@ -171,12 +203,12 @@ public class GeneralController {
 	public Response findUsuarioPersonaByDocumento(@RequestParam String tipoDocumento, @RequestParam String numeroDocumento) {
 		try {
 			List<Personas> personasList = personas.findByIdTipoDocumentoAndNumeroDocumento(tipoDocumento, numeroDocumento);
-			if(personasList.size() == 0) return new Response(Response.FAIL, "El usuario no se encuentra registrado");
+			if(personasList.size() == 0) return new Response(Response.FAIL, "No persona");
 			
 			List<Usuarios> usuariosList = usuarios.findByIdPersonas(personasList.get(0).getId());
-			if(usuariosList.size() == 0) return new Response(Response.FAIL, "El usuario está creado pero no tiene un perfil asignado");
+			if(usuariosList.size() == 0) return new Response(Response.FAIL, "No usuario;" + personasList.get(0).getId());
 			
-			return new Response(Response.OK, usuariosList.get(0));
+			return new Response(Response.OK, personasList.get(0));
 		} catch (Exception e) {
 			return new Response(Response.FAIL, e);
 		}

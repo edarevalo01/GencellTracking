@@ -14,6 +14,9 @@ public class VWTrackingPersonas {
 	@Column(name = "idPaciente")
 	private String idPaciente;
 	
+	@Column(name = "tipoDocumento")
+	private String tipoDocumento;
+	
 	@Column(name = "numeroDocumento")
 	private String numeroDocumento;
 	
@@ -50,6 +53,14 @@ public class VWTrackingPersonas {
 
 	public void setIdPaciente(String idPaciente) {
 		this.idPaciente = idPaciente;
+	}
+
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
 
 	public String getNumeroDocumento() {
