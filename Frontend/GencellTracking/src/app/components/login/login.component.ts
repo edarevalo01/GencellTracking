@@ -6,6 +6,7 @@ import { Respuesta } from "src/app/model/respuesta";
 import { PersonaCrear } from "src/app/model/persona";
 import { Usuario } from "src/app/model/usuario";
 import { MessageService } from "primeng/api";
+import { Md5 } from "ts-md5/dist/md5";
 
 @Component({
 	selector: "app-login",
@@ -67,6 +68,7 @@ export class LoginComponent implements OnInit {
 	public personaReg: PersonaCrear = new PersonaCrear();
 	public usuarioReg: Usuario = new Usuario();
 	public existePersona: boolean = false;
+	public existeUsuario: boolean = false;
 	public idPersonaRegistrada: string = "-1";
 
 	constructor(private service: GeneralService, private router: Router, private messageService: MessageService) {}
@@ -75,7 +77,7 @@ export class LoginComponent implements OnInit {
 
 	iniciarSesion() {
 		this.progress = true;
-		this.service.login(this.docLogin, this.passLogin).subscribe(
+		this.service.login(this.docLogin, String(Md5.hashStr(this.passLogin))).subscribe(
 			respObs => {
 				this.responseLogin = respObs;
 			},
@@ -189,6 +191,7 @@ export class LoginComponent implements OnInit {
 						summary: "La persona ya tiene un usuario asociado",
 						detail: "Existe un usuario asociado a este número de documento."
 					});
+					this.existeUsuario = true;
 					this.personaReg = this.responsePersona.message;
 					this.fillData();
 				} else {
@@ -231,8 +234,9 @@ export class LoginComponent implements OnInit {
 
 	changeDoc() {
 		this.habilitar(false, true, false);
-
 		this.existePersona = false;
+		this.existeUsuario = false;
+
 		this.primerNombre = "";
 		this.segundoNombre = "";
 		this.primerApellido = "";
@@ -253,7 +257,7 @@ export class LoginComponent implements OnInit {
 		this.personaReg.segundoNombre = this.segundoNombre;
 		this.personaReg.primerApellido = this.primerApellido;
 		this.personaReg.segundoApellido = this.segundoApellido;
-		this.usuarioReg.password = this.contrasena;
+		this.usuarioReg.password = String(Md5.hashStr(this.contrasena));
 		this.personaReg.idTipoPersona = this.personaSelected.id;
 		this.personaReg.celular = this.celular;
 		this.personaReg.fijo = this.fijo;
@@ -283,7 +287,7 @@ export class LoginComponent implements OnInit {
 						this.usuarioReg.usuario = this.documentoReg;
 						this.usuarioReg.fechaVencimiento = "2030-12-31";
 						this.usuarioReg.estado = "A";
-						this.usuarioReg.password = this.contrasena;
+						this.usuarioReg.password = String(Md5.hashStr(this.contrasena));
 						this.usuarioReg.idPersonas = respObs.message.id;
 						this.service.crearUsuario(this.usuarioReg).subscribe(respUser => {
 							this.progress = false;
@@ -321,7 +325,7 @@ export class LoginComponent implements OnInit {
 				this.usuarioReg.usuario = this.documentoReg;
 				this.usuarioReg.fechaVencimiento = "2030-12-31";
 				this.usuarioReg.estado = "A";
-				this.usuarioReg.password = this.contrasena;
+				this.usuarioReg.password = String(Md5.hashStr(this.contrasena));
 				this.usuarioReg.idPersonas = this.idPersonaRegistrada;
 
 				this.progress = true;

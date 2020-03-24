@@ -154,7 +154,7 @@
 			</div>
 
 			<div class="button-login">
-				<button pButton type="button" label="Registrar" (click)="sendData()"></button>
+				<button pButton type="button" label="Registrar" (click)="sendData()" [disabled]="existeUsuario"></button>
 			</div>
 		</div>
 		<div class="links">
