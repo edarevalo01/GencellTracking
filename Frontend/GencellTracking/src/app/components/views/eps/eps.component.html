@@ -1,6 +1,6 @@
+<p-toast [style]="{ marginTop: '80px' }" position="top-center"></p-toast>
 <div class="total-page" *ngIf="infoCargada">
 	<div class="nombre-persona">
-		<!-- TODO: Arreglar este nombre -->
 		<p>
 			<b>{{ stringHelper.getResource("lbl-bienvenido") }}: </b>{{ convenio.primerNombre | titlecase }}
 		</p>
@@ -74,3 +74,9 @@
 		<app-persona [idPersonaFrame]="idPersonaSelected"></app-persona>
 	</div>
 </p-dialog>
+
+<div class="ui-g-12 ui-md-12 progress" id="progress" *ngIf="progress">
+	<div class="spinner">
+		<p-progressSpinner [style]="{ width: '150px', height: '150px' }"></p-progressSpinner>
+	</div>
+</div>

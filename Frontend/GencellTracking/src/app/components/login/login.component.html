@@ -91,7 +91,7 @@
 				</span>
 			</div>
 
-			<div class="input-doc">
+			<div class="input-doc" *ngIf="!existeUsuario">
 				<span class="ui-float-label input-parent">
 					<input type="text" pInputText class="input-area" [(ngModel)]="contrasena" type="password" />
 					<label for="float-input">Contraseña</label>

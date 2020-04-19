@@ -5,11 +5,13 @@ import { GeneralService } from "src/app/services/general.service";
 import { Respuesta } from "src/app/model/respuesta";
 import { Persona } from "src/app/model/persona";
 import { EstadoPeticiones } from "src/app/model/estado-peticiones";
+import { MessageService } from "primeng/api";
 
 @Component({
 	selector: "app-persona",
 	templateUrl: "./persona.component.html",
-	styleUrls: ["./persona.component.scss"]
+	styleUrls: ["./persona.component.scss"],
+	providers: [MessageService]
 })
 export class PersonaComponent implements OnInit, OnDestroy {
 	public stringHelper: StringResourceHelper = new StringResourceHelper("persona-component");
@@ -26,12 +28,13 @@ export class PersonaComponent implements OnInit, OnDestroy {
 	public canceladoDevolucion: boolean = false;
 	public canceladoDevolucionObj: any;
 
-	constructor(private service: GeneralService, private router: Router) {}
+	public progress: boolean = false;
+
+	constructor(private service: GeneralService, private router: Router, private messageService: MessageService) {}
 
 	ngOnInit() {
 		this.idPersona = localStorage.getItem("f0Y9MFF4ZX");
 		if (!this.idPersona) {
-			// TODO: Implementar TOAST
 			if (this.idPersonaFrame) {
 				this.idPersona = this.idPersonaFrame;
 			} else {
@@ -46,17 +49,24 @@ export class PersonaComponent implements OnInit, OnDestroy {
 	}
 
 	getPersona() {
+		this.progress = true;
 		this.service.getPersonaById(this.idPersona).subscribe(
 			respuestaObs => {
 				this.respuestaPersona = respuestaObs;
 			},
 			error => {
-				// TODO: Implementar TOAST
+				this.progress = false;
+				this.messageService.add({ severity: "error", summary: "Ha ocurrido un error", detail: error });
 				console.error(error);
 			},
 			() => {
 				if (this.respuestaPersona.status == "fail") {
-					// TODO: Implementar TOAST
+					this.progress = false;
+					this.messageService.add({
+						severity: "warn",
+						summary: "Fallo al cargar persona",
+						detail: this.respuestaPersona.message
+					});
 				} else if (this.respuestaPersona.status == "ok") {
 					this.persona = this.respuestaPersona.message;
 					this.getPeticiones();
@@ -71,12 +81,18 @@ export class PersonaComponent implements OnInit, OnDestroy {
 				this.respuestaPeticion = respuestaObs;
 			},
 			error => {
-				// TODO: Implementar TOAST
+				this.progress = false;
+				this.messageService.add({ severity: "error", summary: "Ha ocurrido un error", detail: error });
 				console.error(error);
 			},
 			() => {
+				this.progress = false;
 				if (this.respuestaPeticion.status == "fail") {
-					// TODO: Implementar TOAST
+					this.messageService.add({
+						severity: "warn",
+						summary: "Fallo al cargar persona",
+						detail: this.respuestaPeticion.message
+					});
 				} else if (this.respuestaPeticion.status == "ok") {
 					this.peticiones = this.respuestaPeticion.message;
 					this.infoCargada = true;
@@ -87,7 +103,6 @@ export class PersonaComponent implements OnInit, OnDestroy {
 	}
 
 	getCantidadPeticiones() {
-		//FIXME: Intentar mejorar esto
 		this.cantidadPeticiones = this.peticiones.length;
 		this.peticiones.map(peticion => {
 			peticion.estados = this.estados;

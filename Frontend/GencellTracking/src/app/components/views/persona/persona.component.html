@@ -1,3 +1,4 @@
+<p-toast [style]="{ marginTop: '80px' }" position="top-center"></p-toast>
 <div class="total-page">
 	<div class="nombre-persona" *ngIf="infoCargada">
 		<p>
@@ -59,11 +60,17 @@
 					appendTo="body"
 					tooltipZIndex="20000"
 				>
-					<div [ngClass]="{ 'box-white': i <= 2 && col.activo != 'E', 'box-grey': i > 2, 'box-grey': col.activo == 'E' }">
+					<div [ngClass]="{ 'box-white': i <= 2 && col.activo != 'E', 'box-grey': col.activo == 'E' || i > 2 }">
 						{{ i + 1 }}
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+
+<div class="ui-g-12 ui-md-12 progress" id="progress" *ngIf="progress">
+	<div class="spinner">
+		<p-progressSpinner [style]="{ width: '150px', height: '150px' }"></p-progressSpinner>
 	</div>
 </div>

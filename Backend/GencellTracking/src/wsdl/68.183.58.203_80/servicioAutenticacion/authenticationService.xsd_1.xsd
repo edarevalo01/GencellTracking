@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://authenticationService.gencell/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://authenticationService.gencell/">
+
+<xs:element name="aplicaciones" type="tns:aplicaciones"/>
+
+<xs:element name="authenticationGencellPharma" type="tns:authenticationGencellPharma"/>
+
+<xs:element name="authenticationGencellPharmaResponse" type="tns:authenticationGencellPharmaResponse"/>
+
+<xs:element name="authenticationTest" type="tns:authenticationTest"/>
+
+<xs:element name="authenticationTestByAppToken" type="tns:authenticationTestByAppToken"/>
+
+<xs:element name="authenticationTestByAppTokenResponse" type="tns:authenticationTestByAppTokenResponse"/>
+
+<xs:element name="authenticationTestByAppUsuario" type="tns:authenticationTestByAppUsuario"/>
+
+<xs:element name="authenticationTestByAppUsuarioResponse" type="tns:authenticationTestByAppUsuarioResponse"/>
+
+<xs:element name="authenticationTestResponse" type="tns:authenticationTestResponse"/>
+
+<xs:element name="changePassGencellPharma" type="tns:changePassGencellPharma"/>
+
+<xs:element name="changePassGencellPharmaResponse" type="tns:changePassGencellPharmaResponse"/>
+
+<xs:element name="ciudades" type="tns:ciudades"/>
+
+<xs:element name="generarTokenByUsuario" type="tns:generarTokenByUsuario"/>
+
+<xs:element name="generarTokenByUsuarioResponse" type="tns:generarTokenByUsuarioResponse"/>
+
+<xs:element name="paises" type="tns:paises"/>
+
+<xs:element name="personas" type="tns:personas"/>
+
+<xs:element name="roles" type="tns:roles"/>
+
+<xs:element name="tiposDocumento" type="tns:tiposDocumento"/>
+
+<xs:element name="tiposPersona" type="tns:tiposPersona"/>
+
+<xs:element name="usuarioRolesAplicacion" type="tns:usuarioRolesAplicacion"/>
+
+<xs:element name="usuarios" type="tns:usuarios"/>
+
+<xs:complexType name="authenticationTestByAppUsuario">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string" minOccurs="0"/>
+<xs:element name="idAplicacion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="authenticationTestByAppUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuarioGencell" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="usuarioGencell">
+<xs:sequence>
+<xs:element name="aplicacionesRoles" type="tns:usuarioRolesAplicacion" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="apps" type="tns:aplicaciones" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="nombreCompleto" type="xs:string" minOccurs="0"/>
+<xs:element name="retorno" type="tns:returnMsg" minOccurs="0"/>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+<xs:element name="usuario" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="usuarioRolesAplicacion">
+<xs:sequence>
+<xs:element name="estado" type="xs:string" minOccurs="0"/>
+<xs:element name="idAplicacion" type="tns:aplicaciones" minOccurs="0"/>
+<xs:element name="idRol" type="tns:roles" minOccurs="0"/>
+<xs:element name="idUsuarioRolesAplicacion" type="xs:int" minOccurs="0"/>
+<xs:element name="usuario" type="tns:usuarios" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="aplicaciones">
+<xs:sequence>
+<xs:element name="estado" type="xs:string" minOccurs="0"/>
+<xs:element name="idAplicacion" type="xs:int" minOccurs="0"/>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="url" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="roles">
+<xs:sequence>
+<xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="estado" type="xs:string" minOccurs="0"/>
+<xs:element name="idRol" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="usuarios">
+<xs:sequence>
+<xs:element name="estado" type="xs:string" minOccurs="0"/>
+<xs:element name="fechaVencimiento" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="idPersonas" type="tns:personas" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="usuario" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="personas">
+<xs:sequence>
+<xs:element name="createdAt" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+<xs:element name="idCiudades" type="tns:ciudades" minOccurs="0"/>
+<xs:element name="idPadre" type="tns:personas" minOccurs="0"/>
+<xs:element name="idTipoDocumento" type="tns:tiposDocumento" minOccurs="0"/>
+<xs:element name="idTipoPersona" type="tns:tiposPersona" minOccurs="0"/>
+<xs:element name="numeroDocumento" type="xs:string" minOccurs="0"/>
+<xs:element name="primerApellido" type="xs:string" minOccurs="0"/>
+<xs:element name="primerNombre" type="xs:string" minOccurs="0"/>
+<xs:element name="segundoApellido" type="xs:string" minOccurs="0"/>
+<xs:element name="segundoNombre" type="xs:string" minOccurs="0"/>
+<xs:element name="updatedAt" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ciudades">
+<xs:sequence>
+<xs:element name="codigo" type="xs:int"/>
+<xs:element name="createdAt" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+<xs:element name="idPais" type="tns:paises" minOccurs="0"/>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="updatedAt" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="paises">
+<xs:sequence>
+<xs:element name="codigo" type="xs:int"/>
+<xs:element name="createdAt" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="updatedAt" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tiposDocumento">
+<xs:sequence>
+<xs:element name="createdAt" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+<xs:element name="updatedAt" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tiposPersona">
+<xs:sequence>
+<xs:element name="createdAt" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="descripcion" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+<xs:element name="updatedAt" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="returnMsg">
+<xs:sequence>
+<xs:element name="desc" type="xs:string" minOccurs="0"/>
+<xs:element name="msg" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="authenticationGencellPharma">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="authenticationGencellPharmaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuarioGencell" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="changePassGencellPharma">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string" minOccurs="0"/>
+<xs:element name="passwordAnterior" type="xs:string" minOccurs="0"/>
+<xs:element name="passwordNuevo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="changePassGencellPharmaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuarioGencell" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="authenticationTest">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="authenticationTestResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuarioGencell" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="authenticationTestByAppToken">
+<xs:sequence>
+<xs:element name="token" type="xs:string" minOccurs="0"/>
+<xs:element name="idAplicacion" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="authenticationTestByAppTokenResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuarioGencell" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="generarTokenByUsuario">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="generarTokenByUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

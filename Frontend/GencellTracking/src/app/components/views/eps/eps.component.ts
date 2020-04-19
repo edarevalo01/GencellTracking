@@ -4,11 +4,13 @@ import { StringResourceHelper } from "src/app/model/string-resource-helper";
 import { GeneralService } from "src/app/services/general.service";
 import { Respuesta } from "src/app/model/respuesta";
 import { Persona } from "src/app/model/persona";
+import { MessageService } from "primeng/api";
 
 @Component({
 	selector: "app-eps",
 	templateUrl: "./eps.component.html",
-	styleUrls: ["./eps.component.scss"]
+	styleUrls: ["./eps.component.scss"],
+	providers: [MessageService]
 })
 export class EpsComponent implements OnInit, OnDestroy {
 	public stringHelper: StringResourceHelper = new StringResourceHelper("eps-component");
@@ -16,12 +18,15 @@ export class EpsComponent implements OnInit, OnDestroy {
 	public idPersonaSelected: string = "";
 	public respuestaConvenio: Respuesta;
 	public respuestaPersonas: Respuesta;
+
 	public listaPersonas: Persona[] = [];
 	public convenio: Persona;
 	public infoCargada: boolean = false;
 	public displayPersona: boolean = false;
 
-	constructor(private service: GeneralService, private router: Router) {}
+	public progress: boolean = false;
+
+	constructor(private service: GeneralService, private router: Router, private messageService: MessageService) {}
 
 	ngOnInit() {
 		localStorage.removeItem("f0Y9MFF4ZX");
@@ -37,17 +42,24 @@ export class EpsComponent implements OnInit, OnDestroy {
 	}
 
 	getInfoConvenio() {
+		this.progress = true;
 		this.service.getConvenioById(this.idEps).subscribe(
 			respuestaObs => {
 				this.respuestaConvenio = respuestaObs;
 			},
 			error => {
-				//TODO: Implementar TOAST
+				this.progress = false;
+				this.messageService.add({ severity: "error", summary: "Ha ocurrido un error", detail: error });
 				console.error(error);
 			},
 			() => {
 				if (this.respuestaConvenio.status == "fail") {
-					//TODO: Implementar TOAST
+					this.progress = false;
+					this.messageService.add({
+						severity: "warn",
+						summary: "Fallo al cargar persona",
+						detail: this.respuestaConvenio.message
+					});
 				} else if (this.respuestaConvenio.status == "ok") {
 					this.convenio = this.respuestaConvenio.message;
 					this.getPacientes();
@@ -62,12 +74,18 @@ export class EpsComponent implements OnInit, OnDestroy {
 				this.respuestaPersonas = respuestaObs;
 			},
 			error => {
-				//TODO: Implementar TOAST
+				this.progress = false;
+				this.messageService.add({ severity: "error", summary: "Ha ocurrido un error", detail: error });
 				console.error(error);
 			},
 			() => {
+				this.progress = false;
 				if (this.respuestaPersonas.status == "fail") {
-					//TODO: Implementar TOAST
+					this.messageService.add({
+						severity: "warn",
+						summary: "Fallo al cargar persona",
+						detail: this.respuestaPersonas.message
+					});
 				} else if (this.respuestaPersonas.status == "ok") {
 					this.listaPersonas = this.respuestaPersonas.message;
 				}

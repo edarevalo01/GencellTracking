@@ -60,7 +60,7 @@ public class GeneralController {
 	public Response login(@RequestParam String usuario, @RequestParam String clave) {
 		AutenticacionController aut = new AutenticacionController();
 		UsuarioGencell user = aut.AutenticarTest(usuario); 
-		//UsuarioGencell user = aut.autenticarGencellPharma(usuario, clave);
+		//	UsuarioGencell user = aut.autenticarGencellPharma(usuario, clave);
 		if (user != null && user.getRetorno() != null && "SUCCESS".equals(user.getRetorno().getMsg())) {
 			String token = aut.generarTokenByUsuario(usuario);
 			return new Response(Response.OK, token);
